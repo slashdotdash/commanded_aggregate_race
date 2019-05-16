@@ -14,7 +14,7 @@ defmodule Thirdpart.Registry do
   end
 
   def disconnect_account(account_id) do
-    GenServer.call(self(), {:disconnect_account, account_id})
+    GenServer.call(__MODULE__, {:disconnect_account, account_id})
   end
 
   def handle_call({:disconnect_account, account_id}, _from, state) do
@@ -24,8 +24,8 @@ defmodule Thirdpart.Registry do
   end
 
   def handle_info({:disconnect, account_id}, state) do
-    %NotifyAccountDisconnected{account_id: account_id} |> ExampleRouter.dispatch
+    %NotifyAccountDisconnected{account_id: account_id} |> ExampleRouter.dispatch()
+
     {:noreply, state}
   end
 end
-
